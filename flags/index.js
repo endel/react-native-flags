@@ -1,4 +1,2 @@
-import * as flat from './flat';
-import * as shiny from './shiny';
-
-export { flat, shiny };
+module.exports.flat = require('./flat');
+module.exports.shiny = require('./shiny');

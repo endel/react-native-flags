@@ -1,26 +1,19 @@
-// @flow
+const React = require('react');
+const Image = require('react-native').Image;
+const flags = require('./flags');
 
-import React from 'react';
-import { Image } from 'react-native';
-import * as flags from './flags';
+const Flag = function (options) {
+  const size = options.size || 64;
+  const code = options.code;
+  const type = options.type || 'shiny';
+  const style = options.style || {};
+  const flag = flags[type]["icons" + size][code];
+  const unknownFlag = flags[type]["icons" + size]['unknown'];
 
-type Props = {
-  size: 16 | 24 | 32 | 48 | 64,
-  code: string,
-  type?: 'flat' | 'shiny',
-  style?: any,
+  return React.createElement(Image, {
+    source: flag || unknownFlag,
+    style: [{ width: size, height: size }, style]
+  }, null);
 };
 
-const Flag = ({ size = 64, code, type = 'shiny', style }: Props) => {
-  const flag = flags[type][`icons${size}`][code];
-  const unknownFlag = flags[type][`icons${size}`]['unknown'];
-
-  return (
-    <Image
-      source={flag || unknownFlag}
-      style={[{ width: size, height: size }, style]}
-    />
-  );
-};
-
-export default Flag;
+module.exports = Flag;
